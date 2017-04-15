@@ -52,7 +52,7 @@ public class Job {
 		// remain unchanged. Might need to use Timestamp
 	}
 	
-	public void setStatus(String newStatus) {
+	public void updateStatus(String newStatus) {
 		this.status = newStatus;
 	}
 	
@@ -72,7 +72,9 @@ public class Job {
 
 	public static void main(String[] args) {
 
-		//testing that the time works
+		//testing that the time works. It doesn't work the way I want
+		//It should show the time the object was created, at the moment
+		//it shows current time whatever that is
 		Job x = new Job("Software Developer", "IBM");
 		System.out.println("testing date: " + x.getDate());
 		System.out.println("\n" + x.toString());
