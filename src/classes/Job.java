@@ -32,7 +32,7 @@ public class Job {
 		this.status = "Awaiting reply...";
 	}
 	
-	/** @return current job title. */
+	/** @return current job position/title. */
 	public String getPosition() {
 		return this.position;
 	}
@@ -91,9 +91,10 @@ public class Job {
 	}
 	
 	/** @return string representation of Job details. */
+	//TODO will need fixing because I added new features to Job class
 	public String toString() {
 		String result = "\n";
-		result = "Job title: " + this.position + "\nCompany Applied to: " +
+		result = "Job Position title: " + this.position + "\nCompany Applied to: " +
 				this.companyName + "\nStatus: " + this.status + "\nDate applied: "
 				+ this.date;
 		
