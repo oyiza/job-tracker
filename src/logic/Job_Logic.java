@@ -26,8 +26,10 @@ public class Job_Logic {
 		//By position
 		case 1:
 			System.out.println("Please enter position:");
-			String position = sc.nextLine(); //TODO new issue!! this line resds position as "" and
+			System.out.println(sc.next());
+			String position = sc.nextLine(); //TODO new issue!! this line reads position as "" and
 			//doesn't store user input
+			System.out.println("Position is: " + position);
 			try{
 				temp = searchJobByPosition(position);
 			} catch(JobNotFoundException e) {
@@ -58,7 +60,7 @@ public class Job_Logic {
 	 * @return an ArrayList containing all jobs with job title as position
 	 * @throws JobNotFoundException
 	 */
-	private ArrayList<Job> searchJobByPosition(String position)  throws JobNotFoundException {
+	public ArrayList<Job> searchJobByPosition(String position)  throws JobNotFoundException {
 		ArrayList<Job> result = new ArrayList<Job>();
 		Iterator<Job> itr = jobs.iterator();
 		Job temp = null;
@@ -168,4 +170,6 @@ public class Job_Logic {
 			System.out.println(result);
 		}
 	}
+	
+	//TODO build test cases for this logic class
 }
