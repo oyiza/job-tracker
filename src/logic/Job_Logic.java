@@ -22,6 +22,9 @@ public class Job_Logic {
 				+ "\n3 - By Status");
 		int option = sc.nextInt();
 		
+		//maybe close scanner here and open a new one inside the switch block?
+		//or maybe because i'm iterating through the temp list?
+		
 		switch(option) {
 		//By position
 		case 1:
@@ -39,6 +42,7 @@ public class Job_Logic {
 		//By Company name
 		case 2:
 			break;
+		//By Status
 		case 3:
 			break;
 		}
@@ -50,7 +54,7 @@ public class Job_Logic {
 		
 		while(itr.hasNext()) {
 			use = itr.next();
-			System.out.println(count + ".\n" + use.toString());
+			System.out.println(count + ". " + use.toString() + "\n");
 			count++;
 		}
 	}
@@ -142,7 +146,7 @@ public class Job_Logic {
 	}
 	
 	/**
-	 * Boss update job method
+	 * TODO Boss update job method
 	 */
 	//TODO update status
 	//TODO update company name
@@ -158,10 +162,12 @@ public class Job_Logic {
 		Iterator<Job> itr = jobs.iterator();
 		Job temp;
 		String result = "";
+		int count = 1;
 		
 		while(itr.hasNext()) {
 			temp = itr.next();
-			result += temp.toString();
+			result += count + ". " + temp.toString() + "\n";
+			count++;
 		}
 		
 		if(result.equals("")) {
@@ -170,6 +176,4 @@ public class Job_Logic {
 			System.out.println(result);
 		}
 	}
-	
-	//TODO build test cases for this logic class
 }
