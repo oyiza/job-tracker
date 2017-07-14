@@ -3,14 +3,13 @@ package classes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 
 public class Job {
 	
 	public String position; 
 	public String companyName;
-	public String date;
-	//can only be one of four options: awaiting reply, interview confirmed, failed and successful 
+	public String date;//only four options: awaiting reply, interview confirmed, failed and successful
+	public int id;
 	public String status;
 	//TODO optional notes about the job?
 	
@@ -28,7 +27,7 @@ public class Job {
 		this.position = position;
 		this.companyName = companyName;
 		//this.date = dateFormat.format(date);
-		this.date = dateFormat.format(jobDate);
+		this.date = dateFormat.format(jobDate);//sets the date to the date and time the object was made
 		this.status = "Awaiting reply...";
 	}
 	
@@ -53,37 +52,18 @@ public class Job {
 	/** @return the exact date and time job class was created. */
 	public String getDate() {
 		return this.date;
-		// TODO this date needs to be initialized only once and
-		// remain unchanged. Might need to use Timestamp
 	}
 	
-	public void updateStatus() {
-		Scanner sc = new Scanner(System.in);
-		boolean done = false;
-		while(!done) {
-			System.out.println("Please select an option to change");
-			System.out.println("1. Awaiting reply..."
-					+ "\n2. Interview confirmed"
-					+ "\n3. Failed"
-					+ "\n4. Successful");
-			int option = sc.nextInt();
-			
-			if(option == 1){
-				this.status = "Awaiting reply...";
-				done = true;
-			} else if(option == 2) {
-				this.status = "Interview confirmed";
-				done = true;
-			} else if(option == 3) {
-				this.status = "Failed";
-				done = true;
-			} else if(option == 4) {
-				this.status = "Successful";
-				done = true;
-			}
-		}
-		
-		sc.close();
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public void setStatus(String status){
+		this.status = status;
 	}
 	
 	public String getStatus() {
@@ -94,9 +74,9 @@ public class Job {
 	//TODO will need fixing because I added new features to Job class
 	public String toString() {
 		String result = "\n";
-		result = "Job Position title: " + this.position + "\nCompany Applied to: " +
-				this.companyName + "\nStatus: " + this.status + "\nDate applied: "
-				+ this.date;
+		result = "Job ID: " + getId() + "\nJob Position title: " + getPosition() + "\nCompany Applied to: " +
+				getCompanyName() + "\nStatus: " + getStatus() + "\nDate applied: "
+				+ getDate();
 		
 		return result;
 	}
