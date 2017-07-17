@@ -11,8 +11,6 @@ public class Job_Logic {
 	
 	//List of jobs that the system keeps track of
 	ArrayList<Job> jobs = new ArrayList<Job>();
-	//Unique ID for the job
-	int id = 101;
 	
 	/**
 	 * Boss search method that determines what methods to call based on position, company name or
@@ -53,9 +51,13 @@ public class Job_Logic {
 			break;
 		//By Status
 		case 3:
-			//TODO probably give the user the statuses and have them pick an option
-			System.out.println("Please enter status:");
-			String status = sc.nextLine();
+			String one = "Awaiting reply...";
+			String two = "Interview Confirmed";
+			String three = "Failed";
+			String four = "Successful";
+			System.out.println("Please select a status:\n1: " + one + "\n2: " + two + "\n3: " + three
+					+ "\n4: " + four);
+			int status = sc.nextInt();
 			
 			try{
 				temp = searchJobByStatus(status);
@@ -136,13 +138,26 @@ public class Job_Logic {
 	 * @return an ArrayList containing all jobs with specified status
 	 * @throws JobNotFoundException
 	 */
-	private ArrayList<Job> searchJobByStatus(String status) throws JobNotFoundException {
+	private ArrayList<Job> searchJobByStatus(int status_id) throws JobNotFoundException {
 		ArrayList<Job> result = new ArrayList<Job>();
 		Iterator<Job> itr = jobs.iterator();
 		Job temp = null;
 		boolean found = false;
+		String status = null;
 		
-		while(itr.hasNext()) {
+		if(status_id == 1) {
+			status = "Awaiting reply...";
+		} else if(status_id == 2) {
+			status = "Interview Confirmed";
+		} else if(status_id == 3) {
+			status = "Failed";
+		} else if(status_id == 4) {
+			status = "Successful";
+		} else {
+			System.out.println("Error: somehow ID is not between 1 and 4");
+		}
+		
+		while(itr.hasNext() && !status.equals(null)) {
 			temp = itr.next();
 			if(temp.getStatus().equalsIgnoreCase(status)) {
 				result.add(temp);
@@ -175,21 +190,78 @@ public class Job_Logic {
 	}
 	
 	/**
-	 * TODO Boss update job method
+	 * Boss updateJob() method that determines what the user wants to update about a specific job
+	 * @throws JobNotFoundException 
 	 */
-	public void updateJob() {
+	public void updateJob() throws JobNotFoundException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter the id of the job you want to update:");
-		//TODO take the id then search for the job (can use a helper search method or built in
-		//array list method, then find out what the user wants to update about the job and go to
-		//the respective function for it.
+		int id = sc.nextInt();
+		Job temp = searchJobByID(id);
+		
+		System.out.println("Printing out job details:...");
+		System.out.println(temp.toString());
+		System.out.println("\nWhat do you want to update?\n1: Status \n2: Company Name \n3: Position");
+		int option = sc.nextInt();
+		
+		switch(option) {
+		//Status
+		case 1:
+			if(updateStatus(temp)) {
+				System.out.println("Status updated successfully\n");
+			} else {
+				System.out.println("Oops!!!! Status not updated. Something went wrong!\n");
+			}
+			break;
+		//Company Name
+		case 2:
+			if(updateCompanyName(temp)) {
+				System.out.println("Company name updated successfully\n");
+			} else {
+				System.out.println("Oops!!!! Company name not updated. Something went wrong!\n");
+			}
+			break;
+		//Position
+		case 3:
+			if(updatePosition(temp)) {
+				System.out.println("Position updated succesfully\n");
+			} else {
+				System.out.println("Oops!!!! Position not updated. Something went wrong!\n");
+			}
+			break;
+		}
 	}
 	
 	/**
-	 * This method takes in a job whose status is about to be changed by the user
+	 * Helper function to search for job with given id
+	 * @param id: of job to look for
+	 * @return found job
+	 * @throws JobNotFoundException
+	 */
+	private Job searchJobByID(int id) throws JobNotFoundException {
+		Iterator<Job> itr = jobs.iterator();
+		Job temp = null;
+		boolean found = false;
+		
+		while(itr.hasNext() && !found) {
+			temp = itr.next();
+			if(temp.getJobId() == id) {
+				found = true;
+			}
+		}
+		
+		if(!found) {
+			throw new JobNotFoundException();
+		} else {
+			return temp;
+		}
+	}
+	
+	/**
+	 * This method updates a job's status to the choice of the user
 	 * @param toUpdate: job whose status is to be updated
 	 */
-	public boolean updateStatus(Job toUpdate) {
+	private boolean updateStatus(Job toUpdate) {
 		Scanner sc = new Scanner(System.in);
 		boolean done = false;
 		while(!done) {
@@ -214,12 +286,39 @@ public class Job_Logic {
 				toUpdate.setStatus("Successful");
 				done = true;
 			}
+			//TODO what happens if user enters 5?
 		}
 		
 		return done;
 	}
-	//TODO update company name
-	//TODO update position
+	
+	/**
+	 * Updates the job's company name to whatever the user decides
+	 * @param toUpdate: the job
+	 * @return true
+	 */
+	private boolean updateCompanyName(Job toUpdate) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Current company name: " + toUpdate.getCompanyName());
+		System.out.println("Please enter new Company name:");
+		String newCompanyName = sc.nextLine();
+		toUpdate.setCompanyName(newCompanyName);;
+		return true;
+	}
+	
+	/**
+	 * Updates the job's position/title to whatever the user decides
+	 * @param toUpdate: the job
+	 * @return true
+	 */
+	private boolean updatePosition(Job toUpdate) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Current position: " + toUpdate.getPosition());
+		System.out.println("Please enter the new position/title");
+		String newPosition = sc.nextLine();
+		toUpdate.setPosition(newPosition);
+		return true;
+	}
 	
 	//TODO delete job
 	

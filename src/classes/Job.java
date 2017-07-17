@@ -3,20 +3,23 @@ package classes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Job {
 	
 	public String position; 
 	public String companyName;
 	public String date;//only four options: awaiting reply, interview confirmed, failed and successful
-	public int id;
 	public String status;
 	//TODO optional notes about the job?
-	
 	
 	//record the date and time the job class was created and store as string
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	static final Date jobDate = new Date();
+	
+	//Getting a unique ID for each job class
+	static AtomicInteger nextId = new AtomicInteger();
+    private int job_id;
 	
 	/**
 	 * Constructor for class 'Job'
@@ -29,6 +32,7 @@ public class Job {
 		//this.date = dateFormat.format(date);
 		this.date = dateFormat.format(jobDate);//sets the date to the date and time the object was made
 		this.status = "Awaiting reply...";
+		job_id = nextId.incrementAndGet();
 	}
 	
 	/** @return current job position/title. */
@@ -54,14 +58,10 @@ public class Job {
 		return this.date;
 	}
 	
-	public int getId() {
-		return id;
+	public int getJobId() {
+		return job_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public void setStatus(String status){
 		this.status = status;
 	}
@@ -71,10 +71,9 @@ public class Job {
 	}
 	
 	/** @return string representation of Job details. */
-	//TODO will need fixing because I added new features to Job class
 	public String toString() {
 		String result = "\n";
-		result = "Job ID: " + getId() + "\nJob Position title: " + getPosition() + "\nCompany Applied to: " +
+		result = "Job ID: " + getJobId() + "\nJob Position title: " + getPosition() + "\nCompany Applied to: " +
 				getCompanyName() + "\nStatus: " + getStatus() + "\nDate applied: "
 				+ getDate();
 		

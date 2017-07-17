@@ -6,7 +6,7 @@ import exception.JobNotFoundException;
 
 public class Job_Controller {
 	
-	public void run() {
+	public void run() throws JobNotFoundException {
 		
 		Job_Logic jobs = new Job_Logic();
 		Scanner sc = new Scanner(System.in);
@@ -41,6 +41,7 @@ public class Job_Controller {
 				break;
 			//Update Job information
 			case 4:
+				jobs.updateJob();
 				break;
 			//Delete Job
 			case 5:
@@ -54,7 +55,7 @@ public class Job_Controller {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JobNotFoundException {
 		Job_Controller system = new Job_Controller();
 		system.run();
 	}
