@@ -12,6 +12,9 @@ public class Job_Logic {
 	//List of jobs that the system keeps track of
 	ArrayList<Job> jobs = new ArrayList<Job>();
 	
+	
+	//TODO I keep getting a null when i delete a job and try to access it. I need to properly throw
+	//job exception and catch it and print out the message
 	/**
 	 * Boss search method that determines what methods to call based on position, company name or
 	 * status
@@ -272,21 +275,22 @@ public class Job_Logic {
 					+ "\n3. Failed"
 					+ "\n4. Successful");
 			int option = sc.nextInt();
-			
-			if(option == 1){
-				toUpdate.setStatus("Awaiting reply...");
-				done = true;
-			} else if(option == 2) {
-				toUpdate.setStatus("Interview confirmed");
-				done = true;
-			} else if(option == 3) {
-				toUpdate.setStatus("Failed");
-				done = true;
-			} else if(option == 4) {
-				toUpdate.setStatus("Successful");
-				done = true;
-			}
-			//TODO what happens if user enters 5?
+		
+				if(option == 1){
+					toUpdate.setStatus("Awaiting reply...");
+					done = true;
+				} else if(option == 2) {
+					toUpdate.setStatus("Interview confirmed");
+					done = true;
+				} else if(option == 3) {
+					toUpdate.setStatus("Failed");
+					done = true;
+				} else if(option == 4) {
+					toUpdate.setStatus("Successful");
+					done = true;
+				} else {
+					System.out.println("Please enter a valid option (1-4)");
+				}
 		}
 		
 		return done;
@@ -320,7 +324,42 @@ public class Job_Logic {
 		return true;
 	}
 	
-	//TODO delete job
+	/**
+	 * Deletes job specified by job id
+	 * @throws JobNotFoundException
+	 */
+	public void deleteJob() throws JobNotFoundException {
+		Scanner sc = new Scanner(System.in);
+		boolean done = false;
+		
+		System.out.println("Please enter the id of the job you want to delete");
+		int id = sc.nextInt();
+		Job temp = searchJobByID(id);
+		System.out.println("\n" + temp.toString());
+		System.out.println();
+		System.out.println("Press 1 to delete and 2 to cancel");
+		int option = sc.nextInt();
+		
+		while(!done){
+			if(option == 1) {
+				System.out.println("Are you sure you want to delete this job?\n1 - Yes\n2 - No");
+				int finalOption = sc.nextInt();
+				if(finalOption == 1) {
+					jobs.remove(temp);
+					done = true;
+					System.out.println("Job deleted successfully!!\n\n");
+				} else if(finalOption == 2) {
+					done = true;
+					break;
+				}
+			} else if(option == 2) {
+				done = true;
+				break;
+			} else {
+				System.out.println("Please enter a valid option");
+			}
+		}
+	}
 	
 	/**
 	 * Prints to console the details of all the jobs in the ArrayList
