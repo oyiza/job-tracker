@@ -27,7 +27,7 @@ public class Job_Controller {
 				try{
 					jobs.displayJobs();
 				} catch(JobNotFoundException e) {
-					System.out.println(e);
+					System.out.println(e.toString());
 				}
 				break;
 			//Add Job
@@ -44,7 +44,7 @@ public class Job_Controller {
 				try {
 					jobs.updateJob();
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					System.out.println(e.toString());
 				}
 				break;
 			//Delete Job
@@ -52,7 +52,7 @@ public class Job_Controller {
 				try {
 					jobs.deleteJob();
 				} catch (JobNotFoundException e) {
-					System.out.println(e.getMessage());
+					System.out.println(e.toString());
 				}
 				break;
 			//Quit
@@ -69,7 +69,7 @@ public class Job_Controller {
 		try {
 			system.run();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.toString());
 		}
 	}
 }

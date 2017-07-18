@@ -12,9 +12,6 @@ public class Job_Logic {
 	//List of jobs that the system keeps track of
 	ArrayList<Job> jobs = new ArrayList<Job>();
 	
-	
-	//TODO I keep getting a null when i delete a job and try to access it. I need to properly throw
-	//job exception and catch it and print out the message
 	/**
 	 * Boss search method that determines what methods to call based on position, company name or
 	 * status
