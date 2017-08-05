@@ -43,7 +43,7 @@ public class Job_Controller {
 			case 4:
 				try {
 					jobs.updateJob();
-				} catch (Exception e) {
+				} catch(JobNotFoundException e) {
 					System.out.println(e.toString());
 				}
 				break;

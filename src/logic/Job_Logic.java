@@ -182,6 +182,9 @@ public class Job_Logic {
 		System.out.println("Please enter company name:");
 		String companyName = sc.nextLine();
 		
+		//TODO have a searchDuplicate() method here that searches the entire collection
+		//to make sure the job to be created doesn't exist already (same name and company)
+		
 		Job newJob = new Job(position, companyName);
 		
 		System.out.println("Job successfully created...");
